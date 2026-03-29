@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model ContactRequest {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+  status    String   @default("NEU")
+}
+
+model NewsletterSubscriber {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+  isActive     Boolean  @default(true)
+}
+
+model BlogPost {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  published Boolean  @default(true)
+}
+
+model ServiceListing {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model ThemeSettings {
+  id            String   @id @default("global")
+
+  // Obsolete - keeping for SQLite migration compatibility
+  textColor     String   @default("#111e3b")
+
+  // Generelle Farben
+  // Helles Design
+  gradientStart        String   @default("#2eb64a")
+  gradientEnd          String   @default("#1e7536")
+  sidebarBgLight       String   @default("#ffffff")
+
+  // Dunkles Design
+  gradientStartDark    String   @default("#2eb64a") // Falls gleich gewollt
+  gradientEndDark      String   @default("#1e7536")
+  sidebarBgDark        String   @default("#1e293b")
+
+  // Obsolete - keeping for compatibility
+  textColorLight       String   @default("#091321")
+  sidebarTextLight     String   @default("#091321")
+  textColorDark        String   @default("#f8fafc")
+  sidebarTextDark      String   @default("#f8fafc")
+
+  updatedAt     DateTime @updatedAt
+}
