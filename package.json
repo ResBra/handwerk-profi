@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push --accept-data-loss && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -12,13 +12,13 @@
     "@libsql/client": "^0.17.2",
     "@prisma/adapter-better-sqlite3": "^7.5.0",
     "@prisma/adapter-libsql": "^7.5.0",
-    "@prisma/client": "^7.5.0",
+    "@prisma/client": "^5.22.0",
     "@types/better-sqlite3": "^7.6.13",
     "better-sqlite3": "^12.8.0",
     "jose": "^6.2.2",
     "next": "16.2.1",
     "nodemailer": "^8.0.4",
-    "prisma": "^7.5.0",
+    "prisma": "^5.22.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
