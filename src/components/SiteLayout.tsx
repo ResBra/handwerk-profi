@@ -154,7 +154,6 @@ export default function SiteLayout({ children, activePage }: SiteLayoutProps) {
         {/* THEME SWITCHER */}
         <div style={{ display: "flex", backgroundColor: "var(--background)", borderRadius: "999px", padding: "0.35rem", marginBottom: "2rem", border: "1px solid var(--border)" }}>
           <button onClick={() => changeTheme("light")} style={{ flex: 1, padding: "0.5rem", borderRadius: "999px", border: "none", background: theme === "light" ? "var(--surface)" : "transparent", color: "var(--foreground)", cursor: "pointer", fontWeight: 600, fontSize: "0.85rem", boxShadow: theme === "light" ? "var(--shadow-sm)" : "none", transition: "all 0.2s" }}>☀️ Hell</button>
-          <button onClick={() => changeTheme("system")} style={{ flex: 1, padding: "0.5rem", borderRadius: "999px", border: "none", background: theme === "system" ? "var(--surface)" : "transparent", color: "var(--foreground)", cursor: "pointer", fontWeight: 600, fontSize: "0.85rem", boxShadow: theme === "system" ? "var(--shadow-sm)" : "none", transition: "all 0.2s" }}>💻 System</button>
           <button onClick={() => changeTheme("dark")} style={{ flex: 1, padding: "0.5rem", borderRadius: "999px", border: "none", background: theme === "dark" ? "var(--surface)" : "transparent", color: "var(--foreground)", cursor: "pointer", fontWeight: 600, fontSize: "0.85rem", boxShadow: theme === "dark" ? "var(--shadow-sm)" : "none", transition: "all 0.2s" }}>🌙 Dunkel</button>
         </div>
 

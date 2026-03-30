@@ -8,6 +8,7 @@ import { logoutAction } from "@/app/actions/auth";
 export default function AdminLayout({ children, title }: { children: React.ReactNode; title: string }) {
   const pathname = usePathname();
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+  const [zoom, setZoom] = useState(100);
 
   const navItems = [
     { name: "Dashboard", href: "/admin/dashboard", icon: "📊" },
@@ -21,7 +22,7 @@ export default function AdminLayout({ children, title }: { children: React.React
     <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "var(--background)", color: "var(--foreground)", position: "relative", overflow: "hidden" }}>
       
       {/* ── MAIN CONTENT (Left) ── */}
-      <main className="admin-content">
+      <main className="admin-content" style={{ zoom: zoom + "%" }}>
         {/* Header with Title only */}
         <div style={{ marginBottom: "3rem" }}>
           <h1 style={{ margin: 0, fontSize: "2rem", color: "var(--foreground)" }}>{title}</h1>
@@ -110,7 +111,21 @@ export default function AdminLayout({ children, title }: { children: React.React
             })}
           </nav>
 
-          <div style={{ padding: "2rem 1rem", borderTop: "1px solid var(--border)", minWidth: "260px" }}>
+          <div style={{ padding: "1.5rem 1rem", borderTop: "1px solid var(--border)", minWidth: "260px" }}>
+            <div style={{ marginBottom: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>ZOOM / SKALIERUNG</span>
+                <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--primary)" }}>{zoom}%</span>
+              </div>
+              <input 
+                type="range" 
+                min="70" 
+                max="100" 
+                value={zoom} 
+                onChange={(e) => setZoom(parseInt(e.target.value))}
+                className="admin-zoom-slider"
+              />
+            </div>
             <form action={logoutAction}>
               <button type="submit" style={{
                 width: "100%", padding: "0.75rem", borderRadius: "0.5rem",
