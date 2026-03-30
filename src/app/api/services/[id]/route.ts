@@ -1,31 +1,32 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
-    const { id } = params;
-    const { title, description, imageUrl, isActive } = await req.json();
+    const body = await req.json();
+    const { title, description, imageUrl, isActive } = body;
 
-    const updated = await prisma.serviceListing.update({
+    const service = await prisma.serviceListing.update({
       where: { id },
-      data: {
-        title,
-        description,
-        ...(imageUrl !== undefined && { imageUrl }),
-        ...(isActive !== undefined && { isActive }),
+      data: { 
+        title, 
+        description, 
+        imageUrl, 
+        isActive: isActive !== undefined ? isActive : true 
       },
     });
 
-    return NextResponse.json(updated);
+    return NextResponse.json(service);
   } catch (error) {
-    console.error("Fehler beim Aktualisieren der Leistung:", error);
-    return NextResponse.json({ error: "Fehler beim Aktualisieren" }, { status: 500 });
+    console.error("Failed to update service:", error);
+    return NextResponse.json({ error: "Failed to update service" }, { status: 500 });
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
-    const { id } = params;
     await prisma.serviceListing.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
