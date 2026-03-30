@@ -2,6 +2,8 @@ import AdminLayout from "@/components/AdminLayout";
 import prisma from "@/lib/prisma";
 import { createPost, deletePost } from "@/app/actions/blog";
 
+export const dynamic = "force-dynamic";
+
 export default async function BlogAdminPage() {
   const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: "desc" }});
 
@@ -22,7 +24,7 @@ export default async function BlogAdminPage() {
 
         {/* LIST POSTS */}
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-          {posts.map((post) => (
+          {posts.map((post: any) => (
             <div key={post.id} style={{ backgroundColor: "var(--surface)", padding: "2rem", borderRadius: "1.5rem", border: "1px solid var(--border)", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1rem" }}>
                 <div>

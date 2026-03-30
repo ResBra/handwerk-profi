@@ -2,6 +2,8 @@ import AdminLayout from "@/components/AdminLayout";
 import prisma from "@/lib/prisma";
 import { createService, deleteService } from "@/app/actions/service";
 
+export const dynamic = "force-dynamic";
+
 export default async function ServicesAdminPage() {
   const services = await prisma.serviceListing.findMany({ orderBy: { createdAt: "desc" }});
 
