@@ -1,9 +1,9 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import fs from "fs";
+import { put } from "@vercel/blob";
 
 export async function createService(formData: FormData) {
   const title = formData.get("title") as string;
@@ -18,19 +18,16 @@ export async function createService(formData: FormData) {
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
       
-      const uploadDir = path.join(process.cwd(), "public/uploads/services");
-      if (!fs.existsSync(uploadDir)) {
-        await mkdir(uploadDir, { recursive: true });
-      }
-
       const ext = path.extname(image.name) || ".jpg";
-      const filename = `${Date.now()}${ext}`;
-      const filepath = path.join(uploadDir, filename);
-      await writeFile(filepath, buffer);
-      imageUrl = `/uploads/services/${filename}`;
+      const filename = `services/${Date.now()}${ext}`;
+      
+      // Upload to Vercel Blob
+      const blob = await put(filename, buffer, {
+        access: "public",
+      });
+      imageUrl = blob.url;
     } catch (e) {
-      console.error("❌ Vercel File Write Error (as expected):", e);
-      // Fallback: Continue without image or with an error indicator if needed
+      console.error("❌ Vercel Blob Upload Error:", e);
     }
   }
 
