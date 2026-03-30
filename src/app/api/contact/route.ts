@@ -29,6 +29,7 @@ export async function POST(req: Request) {
         message,
       },
     });
+    console.log("✅ Database Entry Created:", contactRequest.id);
 
     // 2. Setup Nodemailer (Fail-fast if not configured)
     if (!process.env.SMTP_PASS || process.env.SMTP_PASS === "HIER_MUSS_DAS_GMAIL_APP_PASSWORT_REIN") {
@@ -87,13 +88,14 @@ export async function POST(req: Request) {
     };
 
     try {
+      console.log("📧 Starting SMTP Dispatch...");
       await Promise.all([
         transporter.sendMail(adminMailOptions),
         transporter.sendMail(userMailOptions)
       ]);
+      console.log("✅ SMTP Emails Dispatched Successfully");
     } catch (mailError) {
-      console.error("Mail Dispatch Error:", mailError);
-      // We don't fail the request if mail fails, just log it, since DB insert succeeded.
+      console.error("❌ Mail Dispatch Error:", mailError);
     }
 
     return NextResponse.json({ success: true, data: contactRequest }, { status: 201 });

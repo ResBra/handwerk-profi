@@ -2,6 +2,8 @@ import AdminLayout from "@/components/AdminLayout";
 import prisma from "@/lib/prisma";
 import { deleteInquiry } from "@/app/actions/inquiries";
 
+export const dynamic = "force-dynamic";
+
 export default async function InquiriesPage() {
   const inquiries = await prisma.contactRequest.findMany({
     orderBy: { createdAt: "desc" },
@@ -22,7 +24,7 @@ export default async function InquiriesPage() {
             </tr>
           </thead>
           <tbody>
-            {inquiries.map((inv) => (
+            {inquiries.map((inv: any) => (
               <tr key={inv.id} style={{ borderBottom: "1px solid var(--border)" }}>
                 <td style={{ padding: "1.5rem 1rem", verticalAlign: "top" }}>{new Date(inv.createdAt).toLocaleDateString("de-DE")}</td>
                 <td style={{ padding: "1.5rem 1rem", verticalAlign: "top", fontWeight: 600 }}>{inv.name}</td>
