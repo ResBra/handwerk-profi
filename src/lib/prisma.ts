@@ -3,8 +3,13 @@ import { PrismaClient } from '@prisma/client'
 const prismaClientSingleton = () => {
   // Explicitly passing the URL to satisfy Vercel's build process
   return new PrismaClient({
-    datasourceUrl: process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
-  } as any)
+    // @ts-ignore
+    datasources: {
+      db: {
+        url: process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
+      }
+    }
+  })
 }
 
 declare global {
