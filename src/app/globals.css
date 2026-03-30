@@ -121,6 +121,17 @@ a {
 
 .footer-link:hover { color: var(--primary); text-decoration: underline; }
 
+.site-footer {
+  background-color: var(--secondary) !important;
+  color: white !important;
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+}
+
+:root[data-theme="dark"] .site-footer {
+  background-color: #020617 !important; /* Extremely dark blue/black */
+}
+
 /* Desktop Grid for Leistungen */
 .services-split-grid {
   display: grid;
@@ -227,6 +238,19 @@ a {
 @media (min-width: 1024px) {
   .admin-grid {
     grid-template-columns: 1fr 2fr;
+  }
+}
+
+.admin-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .admin-content {
+    padding: 2rem 3rem;
   }
 }
 

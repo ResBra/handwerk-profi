@@ -11,8 +11,8 @@ export default async function InquiriesPage() {
 
   return (
     <AdminLayout title="Kontaktanfragen">
-      <div style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)", borderRadius: "1rem", overflow: "hidden" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+      <div style={{ backgroundColor: "var(--surface)", border: "1px solid var(--border)", borderRadius: "1rem", overflow: "hidden", overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: "900px", borderCollapse: "collapse", textAlign: "left" }}>
           <thead>
             <tr style={{ backgroundColor: "rgba(0,0,0,0.05)", borderBottom: "1px solid var(--border)" }}>
               <th style={{ padding: "1rem", color: "var(--text-muted)", fontSize: "0.9rem", textTransform: "uppercase" }}>Datum</th>

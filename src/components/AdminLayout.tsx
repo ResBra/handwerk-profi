@@ -21,7 +21,7 @@ export default function AdminLayout({ children, title }: { children: React.React
     <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "var(--background)", color: "var(--foreground)", position: "relative", overflow: "hidden" }}>
       
       {/* ── MAIN CONTENT (Left) ── */}
-      <main style={{ flex: 1, padding: "2rem 3rem", overflowY: "auto", position: "relative" }}>
+      <main className="admin-content">
         {/* Header with Title only */}
         <div style={{ marginBottom: "3rem" }}>
           <h1 style={{ margin: 0, fontSize: "2rem", color: "var(--foreground)" }}>{title}</h1>

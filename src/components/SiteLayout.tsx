@@ -189,15 +189,15 @@ export default function SiteLayout({ children, activePage }: SiteLayoutProps) {
       </main>
 
       {/* ── FOOTER ── */}
-      <footer style={{ backgroundColor: "var(--secondary)", color: "white", padding: "2.5rem 0" }}>
-        <div className="container" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", textAlign: "center" }}>
-          <div className="text-gradient-light" style={{ fontWeight: 900, fontSize: "1.2rem" }}>HM-Profi</div>
-          <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", justifyContent: "center" }}>
-            <Link href="/impressum" style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500, fontSize: "0.9rem" }}>Impressum</Link>
-            <Link href="/datenschutz" style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500, fontSize: "0.9rem" }}>Datenschutz</Link>
-            <Link href="/kontakt" style={{ color: "rgba(255,255,255,0.7)", fontWeight: 500, fontSize: "0.9rem" }}>Kontakt</Link>
+      <footer className="site-footer">
+        <div className="container" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem", textAlign: "center" }}>
+          <div className="text-gradient-light" style={{ fontWeight: 900, fontSize: "1.35rem" }}>HM-Profi</div>
+          <div style={{ display: "flex", gap: "2.5rem", flexWrap: "wrap", justifyContent: "center" }}>
+            <Link href="/impressum" style={{ color: "rgba(255,255,255,0.8)", fontWeight: 500, fontSize: "0.95rem" }}>Impressum</Link>
+            <Link href="/datenschutz" style={{ color: "rgba(255,255,255,0.8)", fontWeight: 500, fontSize: "0.95rem" }}>Datenschutz</Link>
+            <Link href="/kontakt" style={{ color: "rgba(255,255,255,0.8)", fontWeight: 500, fontSize: "0.95rem" }}>Kontakt</Link>
           </div>
-          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem", margin: 0 }}>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", margin: "0.5rem 0 0 0" }}>
             © {new Date().getFullYear()} HM-Profi. Alle Rechte vorbehalten.
           </p>
         </div>
