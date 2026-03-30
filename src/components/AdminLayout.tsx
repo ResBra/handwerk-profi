@@ -19,7 +19,7 @@ export default function AdminLayout({ children, title }: { children: React.React
   ];
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "var(--background)", color: "var(--foreground)", position: "relative", overflow: "hidden" }}>
+    <div style={{ display: "flex", height: "100vh", backgroundColor: "var(--background)", color: "var(--foreground)", position: "relative", overflow: "hidden" }}>
       
       {/* ── MAIN CONTENT (Left) ── */}
       <main className="admin-content" style={{ zoom: zoom + "%" }}>
