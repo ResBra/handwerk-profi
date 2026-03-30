@@ -61,6 +61,34 @@ export default function Home() {
     return () => clearTimeout(unpauseTimer);
   }, [isPlaying, currentSlide]);
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && posts.length > 0) {
+      setCurrentSlide(prev => (prev + 1) % posts.length);
+      setIsPlaying(false);
+    }
+    if (isRightSwipe && posts.length > 0) {
+      setCurrentSlide(prev => (prev - 1 + posts.length) % posts.length);
+      setIsPlaying(false);
+    }
+  };
+
   const heroRef = useReveal(0.1);
   const btnsRef = useReveal(0.15);
   const svcTitleRef = useReveal(0.15);
@@ -218,7 +246,14 @@ export default function Home() {
             <div style={{ width: "80px", height: "5px", background: "var(--primary-gradient)", borderRadius: "999px", margin: "0 auto" }} />
           </div>
 
-          <div ref={blogListRef} className="reveal" style={{ position: "relative", width: "100vw", left: "50%", transform: "translateX(-50%)", overflow: "hidden", padding: "1rem 0" }}>
+          <div 
+            ref={blogListRef} 
+            className="reveal" 
+            style={{ position: "relative", width: "100vw", left: "50%", transform: "translateX(-50%)", overflow: "hidden", padding: "1rem 0" }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {posts.length > 0 ? (
               <>
                 <div style={{

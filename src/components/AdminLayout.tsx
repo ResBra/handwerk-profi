@@ -2,13 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logoutAction } from "@/app/actions/auth";
 
 export default function AdminLayout({ children, title }: { children: React.ReactNode; title: string }) {
   const pathname = usePathname();
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [zoom, setZoom] = useState(100);
+
+  // Persistence for zoom
+  useEffect(() => {
+    const saved = localStorage.getItem("admin-zoom");
+    if (saved) setZoom(parseInt(saved));
+  }, []);
+
+  const handleZoomChange = (val: number) => {
+    setZoom(val);
+    localStorage.setItem("admin-zoom", val.toString());
+  };
 
   const navItems = [
     { name: "Dashboard", href: "/admin/dashboard", icon: "📊" },
@@ -30,10 +41,12 @@ export default function AdminLayout({ children, title }: { children: React.React
         {children}
       </main>
 
-      {/* ── SIDEBAR CONTAINER (Right) ── */}
       <div style={{ 
         position: "relative", 
         width: isSidebarVisible ? "260px" : "0", 
+        height: "100%",
+        padding: "10px", // Adding the 10px 'ticken' distance
+        boxSizing: "border-box",
         transition: "width 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: 100 
       }}>
@@ -74,17 +87,18 @@ export default function AdminLayout({ children, title }: { children: React.React
           {isSidebarVisible ? "›" : "‹"}
         </button>
 
-        {/* ── ADMIN SIDEBAR ── */}
         <aside style={{ 
-            width: "260px",
+            width: isSidebarVisible ? "240px" : "0", // Adjusted for 10px padding
             height: "100%",
             opacity: isSidebarVisible ? 1 : 0,
             backgroundColor: "var(--surface)", 
-            borderLeft: "1px solid var(--border)", 
+            border: "1px solid var(--border)", 
+            borderRadius: "1rem", // Modern rounded floating sidebar
             display: "flex", 
             flexDirection: "column",
-            transition: "opacity 0.4s ease",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             overflow: "hidden",
+            boxShadow: isSidebarVisible ? "0 8px 30px rgba(0,0,0,0.12)" : "none"
           }}>
           <div style={{ padding: "2rem", whiteSpace: "nowrap" }}>
             <h2 style={{ color: "var(--primary)", margin: 0, fontSize: "1.5rem" }}>HM-Profi</h2>
@@ -122,7 +136,7 @@ export default function AdminLayout({ children, title }: { children: React.React
                 min="70" 
                 max="100" 
                 value={zoom} 
-                onChange={(e) => setZoom(parseInt(e.target.value))}
+                onChange={(e) => handleZoomChange(parseInt(e.target.value))}
                 className="admin-zoom-slider"
               />
             </div>
